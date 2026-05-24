@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ATHLETE//ZERO - Create Player</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;1,700;1,800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#c6c6c6",
+                        "outline-variant": "#323F52",
+                        "error-container": "#ffdad6",
+                        "background": "#0B1220",
+                        "surface-container": "#16233B",
+                        "surface-dim": "#111827",
+                        "on-secondary-fixed": "#191c1e",
+                        "outline": "#4B5563",
+                        "surface-container-highest": "#1E293B",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "inverse-primary": "#c6c6c6",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "secondary-fixed": "#e1e2e4",
+                        "on-surface": "#F9FAFB",
+                        "surface-container-low": "#111E32",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#c5c6c8",
+                        "surface-bright": "#1F2937",
+                        "on-secondary-container": "#94A3B8",
+                        "surface-container-lowest": "#0F172A",
+                        "tertiary-container": "#1b1b1b",
+                        "on-tertiary-container": "#848484",
+                        "primary": "#FFFFFF",
+                        "surface-container-high": "#1E293B",
+                        "on-primary-container": "#848484",
+                        "on-background": "#F9FAFB",
+                        "on-primary-fixed-variant": "#474747",
+                        "tertiary-fixed": "#e2e2e2",
+                        "primary-container": "#1b1b1b",
+                        "on-primary": "#000000",
+                        "on-surface-variant": "#94A3B8",
+                        "inverse-surface": "#F1F1F1",
+                        "tertiary": "#FFFFFF",
+                        "error": "#ffb4ab",
+                        "surface": "#16233B",
+                        "surface-tint": "#FFFFFF",
+                        "on-secondary-fixed-variant": "#444749",
+                        "surface-variant": "#1E293B",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "on-secondary": "#111827",
+                        "primary-fixed": "#e2e2e2",
+                        "secondary-container": "#334155",
+                        "secondary": "#94A3B8",
+                        "inverse-on-surface": "#1b1b1b",
+                        "on-primary-fixed": "#1b1b1b",
+                        "brand-gold": "#D4AF37",
+                        "brand-navy": "#0B1220"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "container-max": "1280px",
+                        "base": "8px",
+                        "lg": "40px",
+                        "xl": "64px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "display-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Montserrat"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-sm": ["18px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    },
+                    "animation": {
+                        "pulse-gold": "pulse-gold 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                        "fade-in-up": "fade-in-up 0.6s ease-out forwards",
+                        "badge-unlock": "badge-unlock 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
+                        "particle-burst": "particle-burst 0.8s ease-out forwards"
+                    },
+                    "keyframes": {
+                        "pulse-gold": {
+                            "0%, 100%": { "box-shadow": "0 0 15px rgba(212, 175, 55, 0.4), 0 0 5px rgba(212, 175, 55, 0.2)" },
+                            "50%": { "box-shadow": "0 0 30px rgba(212, 175, 55, 0.6), 0 0 10px rgba(212, 175, 55, 0.3)" }
+                        },
+                        "fade-in-up": {
+                            "0%": { "opacity": "0", "transform": "translateY(20px)" },
+                            "100%": { "opacity": "1", "transform": "translateY(0)" }
+                        },
+                        "badge-unlock": {
+                            "0%": { "opacity": "0", "transform": "translate(-50%, -50%) scale(0.3) rotate(-15deg)" },
+                            "40%": { "opacity": "1", "transform": "translate(-50%, -50%) scale(1.15) rotate(5deg)", "filter": "drop-shadow(0 0 30px #D4AF37)" },
+                            "100%": { "opacity": "1", "transform": "translate(-50%, -50%) scale(1)" }
+                        },
+                        "particle-burst": {
+                            "0%": { "transform": "scale(0)", "opacity": "1" },
+                            "100%": { "transform": "scale(2.5)", "opacity": "0" }
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .premium-card-gradient {
+            background: linear-gradient(to bottom, rgba(11, 18, 32, 0.1) 0%, rgba(11, 18, 32, 0.98) 100%);
+        }
+        .card-perspective {
+            perspective: 1500px;
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+            background: #0B1220;
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 10px;
+        }
+        .stadium-flare {
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+        }
+        .stat-bar-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4), 0 0 5px rgba(212, 175, 55, 0.2);
+            animation: pulse-glow 2s infinite alternate;
+        }
+        @keyframes pulse-glow {
+            from { opacity: 0.7; }
+            to { opacity: 1; filter: brightness(1.2); }
+        }
+        .entrance-fade {
+            animation: fade-in-up 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        
+        #carouselTrack img {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s ease;
+            transform-origin: center center;
+        }
+        .slide-inactive {
+            opacity: 0.4;
+            transform: scale(0.85);
+            filter: grayscale(0.5) blur(2px);
+        }
+        .slide-active {
+            opacity: 1;
+            transform: scale(1);
+            filter: grayscale(0) blur(0);
+        }
+
+        #unlockBadgeOverlay {
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+        .badge-content {
+            background: linear-gradient(135deg, #D4AF37 0%, #B48A1B 100%);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.7), 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+        .burst-particle {
+            position: absolute;
+            background: #D4AF37;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md selection:bg-brand-gold/30">
+<!-- Unlock Animation Overlay -->
+<div class="fixed inset-0 flex items-center justify-center" id="unlockBadgeOverlay">
+<div class="relative">
+<!-- Particle Burst Rings -->
+<div class="absolute inset-0 bg-brand-gold/40 rounded-full animate-particle-burst opacity-0"></div>
+<div class="absolute inset-0 bg-brand-gold/20 rounded-full animate-particle-burst opacity-0 delay-100"></div>
+<div class="badge-content animate-badge-unlock px-lg py-md rounded-xl flex flex-col items-center gap-xs relative z-10">
+<span class="material-symbols-outlined text-primary text-[48px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+<div class="text-center">
+<p class="text-[10px] font-black tracking-[0.3em] text-primary/80 uppercase">Speciality Unlocked</p>
+<h3 class="font-headline-md text-primary uppercase italic" id="unlockedSkillName">POWER HITTER</h3>
+</div>
+</div>
+</div>
+</div>
+<!-- TopAppBar -->
+<header class="bg-background/80 backdrop-blur-md fixed top-0 w-full z-[70] border-b border-outline-variant">
+<div class="flex justify-between items-center px-lg py-sm max-w-container-max mx-auto">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-brand-gold" data-icon="sports_cricket">sports_cricket</span>
+<span class="font-headline-md text-headline-md font-bold italic text-white tracking-widest">ATHLETE//ZERO</span>
+</div>
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-secondary hover:text-white transition-colors cursor-pointer" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</header>
+<main class="pt-xl pb-32 max-w-container-max mx-auto px-gutter flex flex-col md:flex-row gap-lg">
+<!-- Left Side: Form Section -->
+<section class="flex-1 bg-surface-container rounded-xl shadow-2xl p-lg mt-8 border border-outline-variant entrance-fade" style="animation-delay: 0.1s">
+<header class="mb-lg">
+<h1 class="font-headline-lg text-headline-lg text-white uppercase">CREATE YOUR CRICKETER</h1>
+<p class="font-body-md text-secondary mt-xs">Define your legacy on the pitch</p>
+</header>
+<div class="bg-surface-container-low p-md rounded-xl space-y-md border border-outline-variant">
+<div class="space-y-base entrance-fade" style="animation-delay: 0.2s">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Player Name</label>
+<input class="w-full bg-surface-container-highest border border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all font-body-md text-white placeholder-secondary/50" placeholder="Enter Full Name" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-base entrance-fade" style="animation-delay: 0.3s">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Role</label>
+<div class="relative">
+<select class="w-full bg-surface-container-highest border border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all font-body-md text-white appearance-none cursor-pointer">
+<option>Batsman</option>
+<option>Bowler</option>
+<option>All-Rounder</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-secondary" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+</div>
+<div class="space-y-base entrance-fade" style="animation-delay: 0.3s">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Personality</label>
+<div class="relative">
+<select class="w-full bg-surface-container-highest border border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all font-body-md text-white appearance-none cursor-pointer">
+<option>Aggressive</option>
+<option>Tactical</option>
+<option>Balanced</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-secondary" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-base entrance-fade" style="animation-delay: 0.4s">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Batting Style</label>
+<div class="relative">
+<select class="w-full bg-surface-container-highest border border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all font-body-md text-white appearance-none cursor-pointer">
+<option>Right-Handed</option>
+<option>Left-Handed</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-secondary" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+</div>
+<div class="space-y-base entrance-fade" style="animation-delay: 0.4s">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Bowling Style</label>
+<div class="relative">
+<select class="w-full bg-surface-container-highest border border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all font-body-md text-white appearance-none cursor-pointer">
+<option>Fast</option>
+<option>Spin</option>
+<option>Medium</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-secondary" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+</div>
+</div>
+<div class="space-y-base entrance-fade" style="animation-delay: 0.5s">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block">Speciality</label>
+<div class="relative group">
+<select class="w-full bg-surface-container-highest border border-outline-variant rounded-lg p-sm focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all font-body-md text-white appearance-none cursor-pointer" id="specialitySelect">
+<option disabled="" selected="" value="">Select Player Speciality</option>
+<option value="Power Hitter">Power Hitter</option>
+<option value="Anchor">Anchor</option>
+<option value="Swing Specialist">Swing Specialist</option>
+<option value="Death Over Specialist">Death Over Specialist</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-secondary group-hover:text-brand-gold transition-colors" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Side: Premium Preview Card (Back side by default) -->
+<section class="w-full md:w-[400px] mt-8 entrance-fade" style="animation-delay: 0.3s">
+<div class="card-perspective h-[533px]">
+<!-- Added 'is-flipped' class by default to show back side -->
+<div class="card-inner shadow-2xl is-flipped" id="playerCard">
+<!-- FRONT OF CARD (Player Portrait) -->
+<div class="card-front relative border-2 border-outline-variant bg-brand-navy">
+<div class="relative w-full h-full overflow-hidden">
+<div class="flex w-full h-full relative" id="carouselTrack">
+<img alt="Player Preview 1" class="absolute inset-0 w-full h-full object-cover slide-active" src="https://lh3.googleusercontent.com/aida/ADBb0uhajcPZG5jQ1NbAfWM_9vQr3aO3neQWBTJkxVykHDcaHAlvbYkgqfWkKufBrjK_HuUjwwLPjRKx9HSaWS73SlnmkJo285WfnlGyFxz5OH0S1Xcs13mc9xd5tM5SVUTfvLBOUNS2Thek3WsuXSUNpFMnRrAMSsQ_xafg7f0iKf9-43CFgn40rs7zAxHBP-dbLXd9Zpy3gYmHY9e5TrkO8suOH2yr-xPUnmrKra5485thFlmxGEEaLPZ7Xqc"/>
+<img alt="Player Preview 2" class="absolute inset-0 w-full h-full object-cover slide-inactive" src="https://lh3.googleusercontent.com/aida/ADBb0uinku_iZrXqbYYISPuPBmvdhpVhI3-bq6c4wjSUCHl-GfHf4OIYEfPloM6FdBRS3gIrRS2KRSm1lRB6oU3yhreFDGxroFLkxOpSpp124bB3ea0pYQ__ixcDsqCigJe7R97ajKf22OqbH6Ep8RpKX-l3bMvhZLHrhH5kZ1Ue-9c2xdjhxZFC6FWPLiYVmrs8u4BweADAR3_tiv3TVToZfM_-vCuvx6mz4xW-abfwjGhb118V0N91jOwG6ys"/>
+<img alt="Player Preview 3" class="absolute inset-0 w-full h-full object-cover slide-inactive" src="https://lh3.googleusercontent.com/aida/ADBb0uiXq6jPlK5ti63iPq6Uryfl1tMA7XH0k9GBpWsIF4TcVwyhdB66fPyRV5Uo-0M8hY2Gk77bA9fCWtLhoHzf2oCWNiolzK9GtDx_iIftjJAnx0s99lqpw5qT8m9TbQTri7tQijoazEQ9B3CktaGNrrRXQvm-40Giu1Hilyfyy8Czfm101TqgNvOvemoAgmCk5sPP_VlWUbDL8UcGy31D1VGxxLHTvqH1mQFd7ZLMKVfzsS7BgeXzVeV2L40"/>
+</div>
+<div class="absolute inset-0 premium-card-gradient pointer-events-none"></div>
+<div class="absolute -top-20 -left-20 w-64 h-64 stadium-flare rounded-full"></div>
+<div class="absolute -bottom-20 -right-20 w-80 h-80 stadium-flare rounded-full" style="opacity: 0.5"></div>
+<div class="absolute inset-0 z-10 flex">
+<div class="w-1/2 cursor-w-resize" id="prevBtnArea"></div>
+<div class="w-1/2 cursor-e-resize" id="nextBtnArea"></div>
+</div>
+<button class="absolute left-sm top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/30 hover:bg-black/60 text-white rounded-full backdrop-blur-md transition-all z-20 border border-white/10" id="prevBtn">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_back_ios_new">arrow_back_ios_new</span>
+</button>
+<button class="absolute right-sm top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/30 hover:bg-black/60 text-white rounded-full backdrop-blur-md transition-all z-20 border border-white/10" id="nextBtn">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward_ios">arrow_forward_ios</span>
+</button>
+<div class="absolute bottom-32 left-1/2 -translate-x-1/2 flex gap-xs z-20">
+<div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white opacity-100 transition-all"></div>
+<div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white opacity-40 transition-all"></div>
+<div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white opacity-40 transition-all"></div>
+</div>
+</div>
+<div class="absolute top-md right-md z-30 flex gap-sm items-center">
+<button class="bg-white/10 hover:bg-white/20 text-white rounded-full p-xs backdrop-blur-sm transition-all border border-white/10" id="flipBtnFront">
+<span class="material-symbols-outlined text-[20px]" data-icon="flip_camera_android">flip_camera_android</span>
+</button>
+</div>
+<div class="absolute top-md left-md z-30">
+<div class="bg-brand-gold text-primary font-headline-sm px-sm py-xs rounded flex items-center gap-xs shadow-lg border border-white/20">
+<span class="font-bold">OVR 68</span>
+<span class="text-label-sm font-black border-l border-primary/20 pl-xs">BAT</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-md text-center text-white z-20">
+<div class="mb-md">
+<h2 class="font-headline-md text-headline-md italic uppercase tracking-tighter drop-shadow-lg">VIRAJ SHARMA</h2>
+<p class="text-brand-gold font-label-lg tracking-[0.2em] uppercase" style="text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);">THE FINISHER</p>
+</div>
+<div class="flex justify-center items-center gap-base border-t border-b border-white/10 py-sm mb-md bg-black/20 backdrop-blur-sm rounded-lg">
+<div class="text-center">
+<p class="text-white font-bold text-headline-sm">72</p>
+<p class="text-[10px] text-white/60 uppercase">BAT</p>
+</div>
+<div class="w-px h-6 bg-brand-gold/40"></div>
+<div class="text-center">
+<p class="text-white font-bold text-headline-sm">45</p>
+<p class="text-[10px] text-white/60 uppercase">BOWL</p>
+</div>
+<div class="w-px h-6 bg-brand-gold/40"></div>
+<div class="text-center">
+<p class="text-white font-bold text-headline-sm">60</p>
+<p class="text-[10px] text-white/60 uppercase">FIELD</p>
+</div>
+</div>
+<p class="font-body-sm text-white/80 italic text-xs px-md">
+                            "Talent gets you noticed. Attitude makes you unforgettable."
+                        </p>
+</div>
+</div>
+<!-- BACK OF CARD (RPG Stats - High-end Glowing Progress Bars) -->
+<div class="card-back p-lg flex flex-col justify-between">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-sm text-brand-gold uppercase tracking-widest" style="text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);">CORE ATTRIBUTES</h3>
+<button class="bg-white/10 hover:bg-white/20 text-white rounded-full p-xs backdrop-blur-sm transition-all border border-white/10" id="flipBtnBack">
+<span class="material-symbols-outlined text-[20px]" data-icon="flip_camera_android">flip_camera_android</span>
+</button>
+</div>
+<div class="space-y-lg flex-1 flex flex-col justify-center mt-md">
+<!-- RPG Progress Bars -->
+<div class="space-y-base group">
+<div class="flex justify-between font-label-sm text-white/80 uppercase tracking-tighter">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]" data-icon="sports_cricket">sports_cricket</span> BAT</span>
+<span class="text-brand-gold font-bold">72 <span class="text-[10px] opacity-50">/ 100</span></span>
+</div>
+<div class="h-2.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/10">
+<div class="h-full bg-gradient-to-r from-brand-gold/60 to-brand-gold stat-bar-glow rounded-full transition-all duration-1000" style="width: 72%"></div>
+</div>
+</div>
+<div class="space-y-base group">
+<div class="flex justify-between font-label-sm text-white/80 uppercase tracking-tighter">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]" data-icon="speed">speed</span> BOWL</span>
+<span class="text-brand-gold font-bold">45 <span class="text-[10px] opacity-50">/ 100</span></span>
+</div>
+<div class="h-2.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/10">
+<div class="h-full bg-gradient-to-r from-brand-gold/60 to-brand-gold stat-bar-glow rounded-full transition-all duration-1000 opacity-60" style="width: 45%"></div>
+</div>
+</div>
+<div class="space-y-base group">
+<div class="flex justify-between font-label-sm text-white/80 uppercase tracking-tighter">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]" data-icon="catching_pokemon">catching_pokemon</span> FIELD</span>
+<span class="text-brand-gold font-bold">60 <span class="text-[10px] opacity-50">/ 100</span></span>
+</div>
+<div class="h-2.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/10">
+<div class="h-full bg-gradient-to-r from-brand-gold/60 to-brand-gold stat-bar-glow rounded-full transition-all duration-1000" style="width: 60%"></div>
+</div>
+</div>
+<div class="space-y-base group">
+<div class="flex justify-between font-label-sm text-white/80 uppercase tracking-tighter">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]" data-icon="psychology">psychology</span> MENTAL</span>
+<span class="text-brand-gold font-bold">66 <span class="text-[10px] opacity-50">/ 100</span></span>
+</div>
+<div class="h-2.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/10">
+<div class="h-full bg-gradient-to-r from-brand-gold/60 to-brand-gold stat-bar-glow rounded-full transition-all duration-1000" style="width: 66%"></div>
+</div>
+</div>
+<div class="space-y-base group">
+<div class="flex justify-between font-label-sm text-white/80 uppercase tracking-tighter">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]" data-icon="fitness_center">fitness_center</span> FITNESS</span>
+<span class="text-brand-gold font-bold">70 <span class="text-[10px] opacity-50">/ 100</span></span>
+</div>
+<div class="h-2.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/10">
+<div class="h-full bg-gradient-to-r from-brand-gold/60 to-brand-gold stat-bar-glow rounded-full transition-all duration-1000" style="width: 70%"></div>
+</div>
+</div>
+</div>
+<div class="border-t border-white/10 pt-md text-center">
+<p class="font-label-sm text-secondary uppercase tracking-[0.3em] text-[10px]">Athlete ID: #AZ-9921 // GEN-0</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Fixed Action Button / Create Player -->
+<div class="fixed bottom-0 left-0 w-full p-md bg-background/80 backdrop-blur-xl border-t border-outline-variant flex justify-center items-center z-[60]">
+<button class="w-full max-w-container-max bg-brand-gold hover:brightness-110 active:scale-[0.98] transition-all text-primary font-headline-sm py-md rounded-lg px-xl uppercase tracking-widest font-black flex justify-center items-center gap-sm animate-pulse-gold">
+        CREATE PLAYER
+        <span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</button>
+</div>
+<!-- Mobile Navigation Drawer -->
+<nav class="md:hidden">
+<div class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container border-t border-outline-variant shadow-lg">
+<div class="flex flex-col items-center justify-center bg-brand-gold text-primary rounded-xl px-6 py-2">
+<span class="material-symbols-outlined" data-icon="add_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">CREATE</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary px-6 py-2 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">STATS</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary px-6 py-2 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="emoji_events">emoji_events</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">LEAGUE</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary px-6 py-2 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">GEAR</span>
+</div>
+</div>
+</nav>
+<!-- Web Navigation Drawer -->
+<aside class="hidden md:flex fixed left-0 top-0 h-full z-40 w-64 rounded-r-2xl bg-surface-container border-r border-outline-variant shadow-2xl flex-col">
+<div class="p-lg border-b border-outline-variant mb-base">
+<span class="font-headline-sm text-headline-sm font-black italic text-white">ATHLETE//ZERO</span>
+</div>
+<div class="flex-1 py-md overflow-y-auto custom-scrollbar">
+<div class="flex items-center gap-sm px-md py-sm mx-sm text-secondary hover:bg-surface-container-high hover:text-white transition-all rounded-lg cursor-pointer">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg uppercase tracking-wider">DASHBOARD</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm mx-sm bg-surface-container-high text-brand-gold border-l-4 border-brand-gold transition-all rounded-r-lg cursor-pointer mt-sm">
+<span class="material-symbols-outlined" data-icon="add_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span class="font-label-lg text-label-lg uppercase tracking-wider font-bold">CREATE</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm mx-sm text-secondary hover:bg-surface-container-high hover:text-white transition-all rounded-lg cursor-pointer mt-sm">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-lg text-label-lg uppercase tracking-wider">ACADEMY</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm mx-sm text-secondary hover:bg-surface-container-high hover:text-white transition-all rounded-lg cursor-pointer mt-sm">
+<span class="material-symbols-outlined" data-icon="sports_score">sports_score</span>
+<span class="font-label-lg text-label-lg uppercase tracking-wider">MATCHES</span>
+</div>
+</div>
+<div class="p-md border-t border-outline-variant bg-surface-container-low">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-brand-navy border border-brand-gold/30 flex items-center justify-center text-brand-gold font-black italic">EZ</div>
+<div>
+<p class="font-label-lg text-label-lg text-white uppercase font-bold">ELITE STATUS</p>
+<p class="text-[10px] text-brand-gold uppercase font-bold tracking-widest">Season 01 • PRO</p>
+</div>
+</div>
+</div>
+</aside>
+<script>
+    // Carousel Logic
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('#carouselTrack img');
+    const dots = document.querySelectorAll('.carousel-dot');
+    
+    function updateCarousel() {
+        slides.forEach((slide, index) => {
+            if (index === currentSlide) {
+                slide.classList.remove('slide-inactive');
+                slide.classList.add('slide-active');
+                slide.style.zIndex = '5';
+            } else {
+                slide.classList.remove('slide-active');
+                slide.classList.add('slide-inactive');
+                slide.style.zIndex = '1';
+            }
+        });
+
+        dots.forEach((dot, index) => {
+            dot.style.opacity = index === currentSlide ? '1' : '0.4';
+            dot.style.transform = index === currentSlide ? 'scale(1.2)' : 'scale(1)';
+        });
+    }
+
+    const nextSlide = () => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateCarousel();
+    };
+
+    const prevSlide = () => {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        updateCarousel();
+    };
+
+    document.getElementById('nextBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        nextSlide();
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        prevSlide();
+    });
+
+    document.getElementById('prevBtnArea').addEventListener('click', (e) => { e.stopPropagation(); prevSlide(); });
+    document.getElementById('nextBtnArea').addEventListener('click', (e) => { e.stopPropagation(); nextSlide(); });
+
+    updateCarousel();
+
+    // Enhanced Speciality Unlock Logic with Particle Burst
+    const specialitySelect = document.getElementById('specialitySelect');
+    const unlockOverlay = document.getElementById('unlockBadgeOverlay');
+    const unlockedSkillName = document.getElementById('unlockedSkillName');
+
+    function createParticles() {
+        const parent = unlockOverlay.querySelector('.relative');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'burst-particle';
+            const size = Math.random() * 4 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            const destinationX = (Math.random() - 0.5) * 300;
+            const destinationY = (Math.random() - 0.5) * 300;
+            const duration = Math.random() * 500 + 500;
+            
+            parent.appendChild(particle);
+            
+            particle.animate([
+                { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+                { transform: `translate(calc(-50% + ${destinationX}px), calc(-50% + ${destinationY}px)) scale(0)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0, .9, .57, 1)',
+                fill: 'forwards'
+            });
+
+            setTimeout(() => particle.remove(), duration);
+        }
+    }
+
+    specialitySelect.addEventListener('change', (e) => {
+        const value = e.target.value;
+        if (value) {
+            unlockedSkillName.textContent = value;
+            unlockOverlay.style.display = 'flex';
+            
+            // Trigger visual flair
+            createParticles();
+            
+            setTimeout(() => {
+                unlockOverlay.classList.add('opacity-0');
+                unlockOverlay.style.transition = 'opacity 0.5s ease-out';
+                setTimeout(() => {
+                    unlockOverlay.style.display = 'none';
+                    unlockOverlay.classList.remove('opacity-0');
+                    unlockOverlay.style.transition = '';
+                }, 500);
+            }, 2200);
+        }
+    });
+
+    // Flip Logic
+    const card = document.getElementById('playerCard');
+    const flipBtnFront = document.getElementById('flipBtnFront');
+    const flipBtnBack = document.getElementById('flipBtnBack');
+
+    [flipBtnFront, flipBtnBack].forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            card.classList.toggle('is-flipped');
+        });
+    });
+
+    // Cinematic Flare Interaction
+    const track = document.getElementById('carouselTrack');
+    track.addEventListener('mousemove', (e) => {
+        const rect = track.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const flare = track.parentElement.querySelector('.premium-card-gradient');
+        flare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(212, 175, 55, 0.15) 0%, rgba(11, 18, 32, 0.98) 85%)`;
+    });
+    
+    track.addEventListener('mouseleave', () => {
+        const flare = track.parentElement.querySelector('.premium-card-gradient');
+        flare.style.background = `linear-gradient(to bottom, rgba(11, 18, 32, 0.1) 0%, rgba(11, 18, 32, 0.98) 100%)`;
+    });
+</script>
+</body></html>
