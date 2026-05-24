@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { usePlayerStore, formatFans } from "@/store/playerStore";
 
 export function TopHeader() {
-  const { name, ovr, level, fans } = usePlayerStore();
+  const { name, ovr, level, fans, xp, xpToNext } = usePlayerStore();
+  const xpPct = xpToNext > 0 ? Math.min(100, Math.max(0, (xp / xpToNext) * 100)) : 0;
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-[#16233B] bg-[#0B1220]/90 backdrop-blur-md">
@@ -33,12 +34,13 @@ export function TopHeader() {
           <div className="hidden md:flex flex-col justify-center w-24">
             <div className="flex justify-between mb-1">
               <span className="text-[10px] font-bold tracking-widest text-gray-500">XP</span>
+              <span className="text-[9px] font-bold text-gray-500">{Math.round(xpPct)}%</span>
             </div>
             <div className="h-1.5 w-full rounded-full bg-[#16233B]">
               <motion.div
                 className="h-full rounded-full bg-[#D4A94D]"
                 initial={{ width: 0 }}
-                animate={{ width: "68%" }}
+                animate={{ width: `${xpPct}%` }}
                 transition={{ duration: 1.5, ease: "easeOut" }}
               />
             </div>

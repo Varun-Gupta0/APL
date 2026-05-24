@@ -12,7 +12,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const { isCreated, teamSelected } = usePlayerStore();
+  const { isCreated, teamSelected, loadPlayerFromBackend } = usePlayerStore();
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -25,6 +25,12 @@ export default function DashboardLayout({
       return () => unsub();
     }
   }, []);
+
+  useEffect(() => {
+    if (hydrated) {
+      loadPlayerFromBackend();
+    }
+  }, [hydrated, loadPlayerFromBackend]);
 
   useEffect(() => {
     if (hydrated) {

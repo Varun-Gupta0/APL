@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { SocialFeed } from "@/components/social/SocialFeed";
 import { TrendingPanel } from "@/components/social/TrendingPanel";
 import { FanMeter } from "@/components/social/FanMeter";
@@ -7,73 +8,146 @@ import { AnalystCard } from "@/components/social/AnalystCard";
 import { FeedPostProps } from "@/components/social/FeedPost";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-
-const MOCK_POSTS: FeedPostProps[] = [
-  {
-    id: "p1",
-    author: "CricAnalytics Pro",
-    handle: "analytics_pro",
-    timeAgo: "2h",
-    content: (
-      <>
-        Is Sharma the greatest finisher of this era? The numbers don&apos;t lie. His strike rate in the final 4 overs is 214.3. Absolute dominance. <span className="text-[#D4AF37] font-bold">#AthleteZero #Cricket</span>
-      </>
-    ),
-    avatar: "https://lh3.googleusercontent.com/aida/ADBb0uhajcPZG5jQ1NbAfWM_9vQr3aO3neQWBTJkxVykHDcaHAlvbYkgqfWkKufBrjK_HuUjwwLPjRKx9HSaWS73SlnmkJo285WfnlGyFxz5OH0S1Xcs13mc9xd5tM5SVUTfvLBOUNS2Thek3WsuXSUNpFMnRrAMSsQ_xafg7f0iKf9-43CFgn40rs7zAxHBP-dbLXd9Zpy3gYmHY9e5TrkO8suOH2yr-xPUnmrKra5485thFlmxGEEaLPZ7Xqc",
-    isVerified: true,
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB5NPmJz9QRVS6jfW5fvAAvjprDNrX6XH0NhDJfuTTvJFeUun6-l4d_GOZEsvVNiMCERc3EvtF72DGA_KLdUttHI4Zl-a7LFwSvGeMrVvwT5hucgndXd21KPnYdZ5TjgVmQtJx_keFSaKln9-YuXGQac57YgilvUnrcPV17eJDZEaKIjv35bBq-meYo6UTVO--RGCZNoDdIE2i0ZUo9N5P7VZU0cGQO7Iio0CxI-rvWDKDqN1oAVvR_TSpVzLuFqUMJuEMLXcJ29l0",
-    likes: 8900, comments: 1200, reposts: 450, category: "ANALYSTS",
-  },
-  {
-    id: "p2",
-    author: "Titans Captain",
-    handle: "rival_captain",
-    timeAgo: "5h",
-    content: (
-      <>The pressure is mounting. We&apos;re ready for the showdown on Sunday. 🏟️ <span className="text-[#D4AF37] font-bold">#TitansVsDynamos</span></>
-    ),
-    avatar: "https://lh3.googleusercontent.com/aida/ADBb0uinku_iZrXqbYYISPuPBmvdhpVhI3-bq6c4wjSUCHl-GfHf4OIYEfPloM6FdBRS3gIrRS2KRSm1lRB6oU3yhreFDGxroFLkxOpSpp124bB3ea0pYQ__ixcDsqCigJe7R97ajKf22OqbH6Ep8RpKX-l3bMvhZLHrhH5kZ1Ue-9c2xdjhxZFC6FWPLiYVmrs8u4BweADAR3_tiv3TVToZfM_-vCuvx6mz4xW-abfwjGhb118V0N91jOwG6ys",
-    isVerified: true,
-    likes: 312, comments: 82, reposts: 21, category: "RIVALS",
-  },
-  {
-    id: "p3",
-    author: "Athlete Zero News",
-    handle: "zero_news",
-    timeAgo: "8h",
-    content: (<span className="font-semibold italic">EXCLUSIVE: Training camp footage leaked. The speed is unbelievable this season.</span>),
-    avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBzkEGmi0DBIQVeSscj9YvvQKNCTVI-dsErjIrvU4Fb259xRVtjfGas6ZqrKne7npBai5QbDFeExwCLFvqgENATEJWQjDmF9Rq-x4n2nVZeXE7pgWVMQ-WRyaK0lpfhPD_Ek8ZfiB7ewDltT-C52lyy1VYwP3Uw6kaDeMxVUuh1Haep5_mpuTXDXXWZe26B9rvmuJyE1eBdqa8_XrOZN0u-5a8S58AGBiv4BqLUM5M42vJUcIMJbWCYnOpYlKM-XpFIOCDyrEUNohg",
-    isVerified: true,
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBEbMSOlw0VcvY492GGLkB68J_5mh3X3dpuQccC1jf10X9DCTCKG-bEhyRR3hPft7XveQzJs2yrpPYyt0RtSx041oX6LABo0i9ydec4ChPlrmkQICvjutHqajfBr-DOa1krDYJuvSp8Gx5MmCq6Ak1yhSuJV92_UQBpynleGCCmAjtOH856KlTnod7HptrH8RlzGJaytozLw72ih5bsrYdSHWX7nCk2hay3SpbHc_PcRMZLNfItXI846mRTRKDgHSBDw-oyQFz4Vq0",
-    likes: 15000, comments: 3400, reposts: 1200, category: "MEDIA",
-  },
-  {
-    id: "p4",
-    author: "CricketLover99",
-    handle: "fanboy101",
-    timeAgo: "10m",
-    content: "Just bought tickets for the finals! Can't wait to see Sharma destroy the Dynamos bowling attack! 🔥",
-    avatar: "https://lh3.googleusercontent.com/aida/ADBb0uiXq6jPlK5ti63iPq6Uryfl1tMA7XH0k9GBpWsIF4TcVwyhdB66fPyRV5Uo-0M8hY2Gk77bA9fCWtLhoHzf2oCWNiolzK9GtDx_iIftjJAnx0s99lqpw5qT8m9TbQTri7tQijoazEQ9B3CktaGNrrRXQvm-40Giu1Hilyfyy8Czfm101TqgNvOvemoAgmCk5sPP_VlWUbDL8UcGy31D1VGxxLHTvqH1mQFd7ZLMKVfzsS7BgeXzVeV2L40",
-    likes: 45, comments: 2, reposts: 0, category: "FANS",
-  }
-];
+import { api, SocialPost } from "@/lib/api";
+import { usePlayerStore } from "@/store/playerStore";
 
 export default function SocialDashboardPage() {
+  const { name } = usePlayerStore();
+  const [posts, setPosts] = useState<FeedPostProps[]>([]);
+  const [trending, setTrending] = useState<any[]>([]);
+  const [buzz, setBuzz] = useState<number>(125000);
+  const [sentimentScore, setSentimentScore] = useState<number>(75);
+  const [loading, setLoading] = useState(true);
+  const [useAI, setUseAI] = useState(true);
+
+  const fetchFeed = async (aiMode: boolean) => {
+    setLoading(true);
+    try {
+      const data = await api.getSocialFeed(aiMode);
+      if (data && data.feed) {
+        const avatarMap: Record<string, string> = {
+          FAN: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=100",
+          MEDIA: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=100",
+          ANALYST: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100",
+          RIVAL: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100",
+          COACH: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100",
+          MEME: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=100",
+        };
+
+        const categoryMap: Record<string, "FANS" | "MEDIA" | "ANALYSTS" | "RIVALS"> = {
+          FAN: "FANS",
+          MEME: "FANS",
+          MEDIA: "MEDIA",
+          ANALYST: "ANALYSTS",
+          COACH: "ANALYSTS",
+          RIVAL: "RIVALS",
+        };
+
+        const mapped = data.feed.posts.map((post: SocialPost): FeedPostProps => {
+          return {
+            id: post.id,
+            author: post.author,
+            handle: post.handle,
+            timeAgo: "Just Now",
+            content: post.content,
+            avatar: avatarMap[post.postType] || avatarMap.FAN,
+            isVerified: post.isVerified,
+            likes: post.likes || 0,
+            comments: post.replies || 0,
+            reposts: post.retweets || 0,
+            category: categoryMap[post.postType] || "FANS",
+          };
+        });
+
+        setPosts(mapped);
+        setTrending(data.feed.trendingHashtags || []);
+        setBuzz(data.feed.totalBuzz || 125000);
+        setSentimentScore(data.feed.sentimentScore || 75);
+      }
+    } catch (err) {
+      console.error("Failed to load feed:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchFeed(useAI);
+  }, [useAI]);
+
   return (
     <PageTransition>
       <div className="mx-auto max-w-6xl">
-        <SectionHeader title="Social Feed" subtitle="The world is watching your rise" />
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
+          <SectionHeader title="Social Feed" subtitle="The world is watching your rise" />
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <span className="text-xs font-bold text-gray-400 tracking-wider">AI GEN</span>
+            <button
+              onClick={() => setUseAI(!useAI)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                useAI ? "bg-[#D4AF37]" : "bg-gray-700"
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-black transition-transform ${
+                  useAI ? "translate-x-6" : "translate-x-1"
+                }`}
+              />
+            </button>
+          </div>
+        </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Main Feed */}
           <section className="lg:col-span-8 space-y-4">
-            <SocialFeed initialPosts={MOCK_POSTS} />
+            {loading ? (
+              <div className="flex flex-col items-center justify-center py-20 gap-4 bg-[#111E32]/40 rounded-xl border border-[#16233B]">
+                <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#D4A94D] border-t-transparent" />
+                <p className="animate-pulse font-heading text-sm text-white uppercase tracking-wider">
+                  {useAI ? "Gemini is writing the buzz..." : "Loading Social Feed..."}
+                </p>
+              </div>
+            ) : (
+              <SocialFeed initialPosts={posts} />
+            )}
           </section>
 
           {/* Right Sidebar */}
           <aside className="lg:col-span-4 space-y-4">
-            <FanMeter approvalRating={88} />
-            <TrendingPanel />
+            <FanMeter approvalRating={sentimentScore} />
+            
+            {/* Custom Dynamic Trending Panel */}
+            <div className="bg-[#111E32] p-6 rounded-xl border border-[#16233B]">
+              <h3 className="mb-4 font-sans text-xs font-bold tracking-widest text-gray-400 uppercase">
+                Trending #Zero Hype
+              </h3>
+              <div className="space-y-4">
+                {trending.length > 0 ? (
+                  trending.map((trend, i) => (
+                    <div key={trend.tag} className="flex justify-between items-center">
+                      <div>
+                        <p className="font-heading text-base text-white">{trend.tag}</p>
+                        <p className="text-xs text-gray-400 font-sans">
+                          {(trend.count / 1000).toFixed(0)}K posts
+                        </p>
+                      </div>
+                      <span className={`rounded-sm px-2 py-0.5 text-[10px] font-bold ${
+                        trend.trend === "VIRAL"
+                          ? "bg-red-500/20 text-red-400"
+                          : trend.trend === "RISING"
+                          ? "bg-yellow-500/20 text-yellow-400"
+                          : "bg-blue-500/20 text-blue-400"
+                      }`}>
+                        {trend.trend}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-gray-400">No active hashtags</p>
+                )}
+              </div>
+            </div>
+
             <AnalystCard />
             <button className="w-full bg-[#D4AF37] text-black font-bold py-3 rounded-lg shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:brightness-110 active:scale-95 transition-all uppercase tracking-widest italic">
               Upgrade to ELITE+

@@ -15,7 +15,7 @@ const PORTRAITS = [
 
 export default function CreatePlayerPage() {
   const router = useRouter();
-  const setPlayer = usePlayerStore((s) => s.setPlayer);
+  const createPlayerOnBackend = usePlayerStore((s) => s.createPlayerOnBackend);
   const isCreated = usePlayerStore((s) => s.isCreated);
   const teamSelected = usePlayerStore((s) => s.teamSelected);
 
@@ -122,8 +122,8 @@ export default function CreatePlayerPage() {
       : (stats.bat + stats.bowl) * 0.35 + stats.mental * 0.15 + stats.fitness * 0.1 + stats.field * 0.05
   );
 
-  const handleCreatePlayer = () => {
-    setPlayer({
+  const handleCreatePlayer = async () => {
+    await createPlayerOnBackend({
       name: playerName.trim() || "VIRAJ SHARMA",
       role,
       personality,
@@ -131,7 +131,6 @@ export default function CreatePlayerPage() {
       bowlingStyle,
       specialty,
       portraitIndex: currentSlide,
-      ovr
     });
     router.push("/team-select");
   };

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { MapPin, Zap } from "lucide-react";
+import Link from "next/link";
 
 const matches = [
   { date: "May 28", opponent: "Delhi Dynamos", venue: "Wankhede Stadium", time: "7:30 PM", isRivalry: true, importance: "HIGH" },
@@ -50,9 +51,11 @@ export default function SchedulePage() {
                 <div className="flex items-center gap-2 text-sm text-gray-400"><MapPin size={14} className="text-[#D4A94D]" /> Wankhede Stadium, Mumbai</div>
                 <p className="text-xl text-white font-bold">May 28 · 7:30 PM</p>
               </div>
-              <button className="rounded-lg bg-[#D4A94D] px-8 py-3 font-bold tracking-widest text-black uppercase hover:brightness-110 active:scale-95 transition-all">
-                Match Preview
-              </button>
+              <Link href="/dashboard/match">
+                <button className="rounded-lg bg-[#D4A94D] px-8 py-3 font-bold tracking-widest text-black uppercase hover:brightness-110 active:scale-95 transition-all">
+                  Play Match
+                </button>
+              </Link>
             </div>
           </div>
         </motion.div>

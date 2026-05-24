@@ -13,7 +13,7 @@ const timeline = [
 ];
 
 export default function CareerPage() {
-  const { name, role, specialty, teamName, ovr, level, fans } = usePlayerStore();
+  const { name, role, specialty, teamName, ovr, level, fans, totalMatches, totalRuns, totalWickets } = usePlayerStore();
 
   return (
     <PageTransition>
@@ -49,9 +49,9 @@ export default function CareerPage() {
 
         {/* Career Stats */}
         <div className="grid gap-4 md:grid-cols-4">
-          <StatCard label="Career Matches" value="22" delay={0.1} icon={<Calendar size={20} />} />
-          <StatCard label="Total Runs" value="999" delay={0.2} icon={<TrendingUp size={20} />} />
-          <StatCard label="Best Score" value="104*" accent delay={0.3} icon={<Award size={20} />} />
+          <StatCard label="Career Matches" value={totalMatches.toString()} delay={0.1} icon={<Calendar size={20} />} />
+          <StatCard label="Total Runs" value={totalRuns.toString()} delay={0.2} icon={<TrendingUp size={20} />} />
+          <StatCard label="Total Wickets" value={totalWickets.toString()} accent delay={0.3} icon={<Award size={20} />} />
           <StatCard label="Followers" value={fans >= 1000 ? (fans/1000).toFixed(0)+"K" : fans.toString()} delay={0.4} />
         </div>
 
