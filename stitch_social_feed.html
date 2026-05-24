@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ATHLETE//ZERO - Social Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed-variant": "#474747",
+                "on-error": "#ffffff",
+                "surface-container-high": "#e8e8e8",
+                "secondary": "#5c5f60",
+                "surface-dim": "#dadada",
+                "on-error-container": "#93000a",
+                "on-tertiary-fixed": "#1b1b1b",
+                "error": "#ba1a1a",
+                "on-secondary-container": "#606365",
+                "tertiary-container": "#1b1b1b",
+                "surface-container-highest": "#e2e2e2",
+                "surface": "#f9f9f9",
+                "outline-variant": "#cfc4c5",
+                "primary-container": "#1b1b1b",
+                "tertiary": "#000000",
+                "surface-bright": "#f9f9f9",
+                "secondary-fixed-dim": "#c5c6c8",
+                "surface-container-lowest": "#ffffff",
+                "primary": "#000000",
+                "outline": "#7e7576",
+                "surface-variant": "#e2e2e2",
+                "on-background": "#1b1b1b",
+                "tertiary-fixed-dim": "#c6c6c6",
+                "surface-container": "#eeeeee",
+                "surface-container-low": "#f3f3f3",
+                "on-primary-container": "#848484",
+                "background": "#f9f9f9",
+                "tertiary-fixed": "#e2e2e2",
+                "on-secondary": "#ffffff",
+                "on-primary-fixed": "#1b1b1b",
+                "primary-fixed": "#e2e2e2",
+                "on-surface-variant": "#4c4546",
+                "secondary-fixed": "#e1e2e4",
+                "inverse-surface": "#303030",
+                "inverse-on-surface": "#f1f1f1",
+                "primary-fixed-dim": "#c6c6c6",
+                "on-secondary-fixed": "#191c1e",
+                "on-tertiary-container": "#848484",
+                "surface-tint": "#5e5e5e",
+                "on-tertiary": "#ffffff",
+                "on-secondary-fixed-variant": "#444749",
+                "inverse-primary": "#c6c6c6",
+                "on-primary-fixed-variant": "#474747",
+                "on-surface": "#1b1b1b",
+                "on-primary": "#ffffff",
+                "secondary-container": "#dee0e2",
+                "gold-accent": "#D4AF37",
+                "navy-deep": "#0A0F1C"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "container-max": "1280px",
+                "xl": "64px",
+                "md": "24px",
+                "xs": "4px",
+                "lg": "40px",
+                "gutter": "24px",
+                "base": "8px",
+                "sm": "12px"
+            },
+            "fontFamily": {
+                "body-md": ["Inter"],
+                "headline-md": ["Montserrat"],
+                "display-lg": ["Montserrat"],
+                "label-sm": ["Inter"],
+                "headline-lg-mobile": ["Montserrat"],
+                "headline-sm": ["Montserrat"],
+                "headline-lg": ["Montserrat"],
+                "body-sm": ["Inter"],
+                "body-lg": ["Inter"],
+                "label-lg": ["Inter"]
+            },
+            "fontSize": {
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "headline-sm": ["18px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-lg": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #D1D5DB;
+            border-radius: 10px;
+        }
+        .fan-meter-ring {
+            transition: stroke-dashoffset 1s ease-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        .bento-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md custom-scrollbar overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-background dark:bg-background">
+<div class="flex justify-between items-center px-lg py-sm max-w-container-max mx-auto">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed text-headline-md">sports_cricket</span>
+<h1 class="font-headline-md text-headline-md font-bold italic text-primary dark:text-primary-fixed tracking-widest">ATHLETE//ZERO</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex gap-md">
+<a class="text-primary dark:text-primary-fixed font-bold font-label-lg uppercase tracking-wider hover:opacity-80 transition-opacity" href="#">Dashboard</a>
+<a class="text-secondary dark:text-secondary-fixed font-label-lg uppercase tracking-wider hover:opacity-80 transition-opacity" href="#">Network</a>
+</div>
+<button class="active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed text-headline-md">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-md lg:px-lg py-md grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Sidebar Navigation (Desktop) -->
+<aside class="hidden lg:block lg:col-span-3">
+<nav class="sticky top-24 space-y-base">
+<div class="bg-surface-container-lowest dark:bg-surface-dim rounded-lg p-md shadow-sm border border-outline-variant">
+<div class="flex items-center gap-sm mb-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a young elite athlete with a determined expression. The lighting is dramatic and high-contrast, emphasizing their athletic features against a dark, textured background. The overall aesthetic is premium and professional, following the high-stakes sports management theme with deep blacks and sharp highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_JKK6bJgba5KGcZ1nJu2gzRm1j1d9RpCcpeb54cwWegpFVse-qU-KQoQafp4CHQxxFcgUxcIGZyjUTZI7GkDwAGq-EkJaT04sqs7OecBs5YEV7clPS7UseIbi3W477ZMkOixIE51FFOErl0eBTmucUII6Czve0mL17G8Hr2EGelN0JbLT3tFa07tf4Yh7-OBb-TvqPUY4zRE1SWlVIvBwzUYbhc9LVrJMmMXwUIHqPFZuxxKNIIWSD40dqUG0_B0SGROdLXel3ZA"/>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm italic">ELITE STATUS</p>
+<p class="text-label-sm uppercase text-secondary">Season 01 • PRO</p>
+</div>
+</div>
+<ul class="space-y-xs">
+<li>
+<a class="flex items-center gap-sm p-sm rounded-lg text-primary dark:text-primary-fixed border-l-4 border-primary dark:border-primary-fixed bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg uppercase tracking-wider">DASHBOARD</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm p-sm rounded-lg text-secondary dark:text-secondary-fixed hover:bg-surface-container dark:hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-lg uppercase tracking-wider">ACADEMY</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm p-sm rounded-lg text-secondary dark:text-secondary-fixed hover:bg-surface-container dark:hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">sports_score</span>
+<span class="font-label-lg uppercase tracking-wider">MATCHES</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm p-sm rounded-lg text-secondary dark:text-secondary-fixed hover:bg-surface-container dark:hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-lg uppercase tracking-wider">CAREER</span>
+</a>
+</li>
+</ul>
+</div>
+<!-- Fan Meter Widget -->
+<div class="bg-navy-deep rounded-xl p-md text-white shadow-lg bento-card">
+<h3 class="font-headline-sm text-headline-sm italic mb-md text-gold-accent">FAN METER</h3>
+<div class="flex flex-col items-center">
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="w-full h-full">
+<circle class="text-white/10" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+<circle class="fan-meter-ring" cx="64" cy="64" fill="transparent" r="58" stroke="#D4AF37" stroke-dasharray="364.4" stroke-dashoffset="43.7" stroke-width="8"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-headline-md font-bold">88%</span>
+<span class="text-[10px] uppercase font-bold tracking-tighter opacity-70">Approval</span>
+</div>
+</div>
+<div class="mt-md flex items-center gap-xs text-gold-accent">
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+<span class="font-label-sm">+4.2% THIS WEEK</span>
+</div>
+</div>
+</div>
+</nav>
+</aside>
+<!-- Main Feed Center -->
+<section class="lg:col-span-6 space-y-md">
+<!-- Feed Filter Tabs -->
+<div class="bg-surface-container-lowest dark:bg-surface-dim rounded-xl p-xs flex justify-between items-center shadow-sm border border-outline-variant overflow-x-auto no-scrollbar">
+<button class="px-md py-sm font-label-lg uppercase tracking-wider text-primary border-b-2 border-primary">ALL</button>
+<button class="px-md py-sm font-label-lg uppercase tracking-wider text-secondary hover:text-primary transition-colors">FANS</button>
+<button class="px-md py-sm font-label-lg uppercase tracking-wider text-secondary hover:text-primary transition-colors">MEDIA</button>
+<button class="px-md py-sm font-label-lg uppercase tracking-wider text-secondary hover:text-primary transition-colors">ANALYSTS</button>
+<button class="px-md py-sm font-label-lg uppercase tracking-wider text-secondary hover:text-primary transition-colors">RIVALS</button>
+</div>
+<!-- Scrollable Timeline -->
+<div class="space-y-md pb-24 lg:pb-0">
+<!-- Post Card 1 -->
+<article class="bg-surface-container-lowest dark:bg-surface-dim p-md rounded-xl shadow-sm border border-outline-variant bento-card">
+<div class="flex gap-sm">
+<div class="shrink-0 w-12 h-12 rounded-full overflow-hidden bg-surface-variant ring-2 ring-gold-accent ring-offset-2">
+<img class="w-full h-full object-cover" data-alt="A portrait of a sharp, professional cricket commentator wearing a crisp white dress shirt in a modern stadium studio environment. The atmosphere is professional and high-stakes, with blurred stadium lights in the background. The lighting is high-key and clean, matching a modern light-mode interface with subtle gold and black accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEGU8VJbFalilDjfEvIXBLU7KIxdbQfegAf1QQGlHYyKNKNnMUrqO7glko5Je3ejcQqORohEybq1iHWye3x3vwpefm8vE6a_eZplEE2QTrZrBE1F409v_r0avmdYFmFKffVqMTAXSmb7Tx-sVZlXv0p5ctaPGq8Xo2zV30jlHVMqOYE8iAhEyZvBh9j8OtQ78pKFegNqQz3HUyju1ZrI5FM1SVPWsQWbmxCTL0lntLYNK3KF8t7YCgNqzmBhrvF4sz2nvft5-V10Y"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-xs">
+<h4 class="font-headline-sm text-headline-sm italic">CricAnalytics Pro</h4>
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="text-body-sm text-secondary">@analytics_pro • 2h</p>
+</div>
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="mt-sm space-y-sm">
+<p class="text-body-md text-on-surface">Is Sharma the greatest finisher of this era? The numbers don't lie. His strike rate in the final 4 overs is 214.3. Absolute dominance. <span class="text-gold-accent font-bold">#AthleteZero #Cricket</span></p>
+<div class="rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-64 object-cover" data-alt="A dramatic wide-angle shot of a massive cricket stadium at night under brilliant floodlights. The field is a lush vibrant green, and the atmosphere is electric with a slight haze in the air from the crowd's energy. The style is cinematic and high-contrast, emphasizing the grand scale and professional prestige of an international match." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5NPmJz9QRVS6jfW5fvAAvjprDNrX6XH0NhDJfuTTvJFeUun6-l4d_GOZEsvVNiMCERc3EvtF72DGA_KLdUttHI4Zl-a7LFwSvGeMrVvwT5hucgndXd21KPnYdZ5TjgVmQtJx_keFSaKln9-YuXGQac57YgilvUnrcPV17eJDZEaKIjv35bBq-meYo6UTVO--RGCZNoDdIE2i0ZUo9N5P7VZU0cGQO7Iio0CxI-rvWDKDqN1oAVvR_TSpVzLuFqUMJuEMLXcJ29l0"/>
+</div>
+</div>
+<div class="mt-md flex justify-between items-center pt-sm border-t border-outline-variant text-secondary">
+<button class="flex items-center gap-xs hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">chat_bubble_outline</span>
+<span class="text-label-sm">1.2K</span>
+</button>
+<button class="flex items-center gap-xs hover:text-green-600 transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">repeat</span>
+<span class="text-label-sm">450</span>
+</button>
+<button class="flex items-center gap-xs hover:text-red-600 transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">favorite</span>
+<span class="text-label-sm">8.9K</span>
+</button>
+<button class="hover:text-primary transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Post Card 2 -->
+<article class="bg-surface-container-lowest dark:bg-surface-dim p-md rounded-xl shadow-sm border border-outline-variant bento-card">
+<div class="flex gap-sm">
+<div class="shrink-0 w-12 h-12 rounded-full overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0uhajcPZG5jQ1NbAfWM_9vQr3aO3neQWBTJkxVykHDcaHAlvbYkgqfWkKufBrjK_HuUjwwLPjRKx9HSaWS73SlnmkJo285WfnlGyFxz5OH0S1Xcs13mc9xd5tM5SVUTfvLBOUNS2Thek3WsuXSUNpFMnRrAMSsQ_xafg7f0iKf9-43CFgn40rs7zAxHBP-dbLXd9Zpy3gYmHY9e5TrkO8suOH2yr-xPUnmrKra5485thFlmxGEEaLPZ7Xqc"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-xs">
+<h4 class="font-headline-sm text-headline-sm italic">Titans Captain</h4>
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="text-body-sm text-secondary">@rival_captain • 5h</p>
+</div>
+</div>
+<div class="mt-sm">
+<p class="text-body-md text-on-surface">The pressure is mounting. We're ready for the showdown on Sunday. 🏟️ <span class="text-gold-accent font-bold">#TitansVsDynamos</span></p>
+</div>
+<div class="mt-md flex justify-between items-center pt-sm border-t border-outline-variant text-secondary">
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-xs hover:text-primary transition-colors"><span class="material-symbols-outlined">chat_bubble_outline</span><span class="text-label-sm">82</span></button>
+<button class="flex items-center gap-xs hover:text-green-600 transition-colors"><span class="material-symbols-outlined">repeat</span><span class="text-label-sm">21</span></button>
+<button class="flex items-center gap-xs hover:text-red-600 transition-colors"><span class="material-symbols-outlined">favorite</span><span class="text-label-sm">312</span></button>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Post Card 3 (Media Post) -->
+<article class="bg-navy-deep p-md rounded-xl shadow-lg bento-card text-white">
+<div class="flex gap-sm">
+<div class="shrink-0 w-12 h-12 rounded-full overflow-hidden border-2 border-gold-accent">
+<img class="w-full h-full object-cover" data-alt="A portrait of a seasoned sports journalist in a dark navy suit, standing in front of a high-tech broadcast screen showing sports data. The lighting is cinematic with warm amber highlights, creating a sense of elite expertise. The overall aesthetic is dark and sophisticated, incorporating the navy and gold palette of a premium sports management dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzkEGmi0DBIQVeSscj9YvvQKNCTVI-dsErjIrvU4Fb259xRVtjfGas6ZqrKne7npBai5QbDFeExwCLFvqgENATEJWQjDmF9Rq-x4n2nVZeXE7pgWVMQ-WRyaK0lpfhPD_Ek8ZfiB7ewDltT-C52lyy1VYwP3Uw6kaDeMxVUuh1Haep5_mpuTXDXXWZe26B9rvmuJyE1eBdqa8_XrOZN0u-5a8S58AGBiv4BqLUM5M42vJUcIMJbWCYnOpYlKM-XpFIOCDyrEUNohg"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-xs">
+<h4 class="font-headline-sm text-headline-sm italic text-gold-accent">Athlete Zero News</h4>
+<span class="material-symbols-outlined text-gold-accent text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="text-body-sm text-white/60">@zero_news • 8h</p>
+</div>
+</div>
+<div class="mt-sm space-y-md">
+<p class="text-body-md font-semibold italic">EXCLUSIVE: Training camp footage leaked. The speed is unbelievable this season.</p>
+<div class="aspect-video bg-black/40 rounded-lg flex items-center justify-center relative overflow-hidden group cursor-pointer border border-white/10">
+<img class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700" data-alt="A high-action, motion-blurred shot of a cricket player swinging a bat in a professional training facility. The lighting is dramatic and focused, highlighting the power of the movement. The aesthetic is gritty and high-performance, with deep shadows and sharp highlights, perfectly capturing the intensity of professional athletic training." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEbMSOlw0VcvY492GGLkB68J_5mh3X3dpuQccC1jf10X9DCTCKG-bEhyRR3hPft7XveQzJs2yrpPYyt0RtSx041oX6LABo0i9ydec4ChPlrmkQICvjutHqajfBr-DOa1krDYJuvSp8Gx5MmCq6Ak1yhSuJV92_UQBpynleGCCmAjtOH856KlTnod7HptrH8RlzGJaytozLw72ih5bsrYdSHWX7nCk2hay3SpbHc_PcRMZLNfItXI846mRTRKDgHSBDw-oyQFz4Vq0"/>
+<div class="relative z-10 w-16 h-16 bg-gold-accent rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-black text-[40px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="mt-md flex justify-between items-center pt-sm border-t border-white/10 text-white/60">
+<button class="flex items-center gap-xs hover:text-white transition-colors"><span class="material-symbols-outlined">chat_bubble_outline</span><span class="text-label-sm">3.4K</span></button>
+<button class="flex items-center gap-xs hover:text-white transition-colors"><span class="material-symbols-outlined">favorite</span><span class="text-label-sm">15K</span></button>
+<button class="hover:text-white transition-colors"><span class="material-symbols-outlined">share</span></button>
+</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Sidebar Right (Desktop) -->
+<aside class="hidden lg:block lg:col-span-3 space-y-md">
+<div class="sticky top-24 space-y-md">
+<!-- Trending Section -->
+<div class="bg-surface-container-lowest dark:bg-surface-dim rounded-xl p-md shadow-sm border border-outline-variant">
+<h3 class="font-headline-sm text-headline-sm italic mb-md">TRENDING FOR YOU</h3>
+<div class="space-y-md">
+<div class="cursor-pointer hover:bg-surface-container-low p-xs rounded transition-colors">
+<p class="text-label-sm text-secondary uppercase tracking-tighter">Sports • Trending</p>
+<p class="font-bold text-primary">#CricketSeason01</p>
+<p class="text-label-sm text-secondary">42.5K Posts</p>
+</div>
+<div class="cursor-pointer hover:bg-surface-container-low p-xs rounded transition-colors">
+<p class="text-label-sm text-secondary uppercase tracking-tighter">Athletes</p>
+<p class="font-bold text-primary">#TheFinisher</p>
+<p class="text-label-sm text-secondary">18.2K Posts</p>
+</div>
+<div class="cursor-pointer hover:bg-surface-container-low p-xs rounded transition-colors">
+<p class="text-label-sm text-secondary uppercase tracking-tighter">League Action</p>
+<p class="font-bold text-primary">#TitansVsDynamos</p>
+<p class="text-label-sm text-secondary">9.1K Posts</p>
+</div>
+</div>
+<button class="mt-md w-full text-gold-accent font-bold uppercase text-label-sm hover:underline">Show more</button>
+</div>
+<!-- Sentiment Analysis -->
+<div class="bg-surface-container-lowest dark:bg-surface-dim rounded-xl p-md shadow-sm border border-outline-variant">
+<h3 class="font-headline-sm text-headline-sm italic mb-md">SENTIMENT ANALYSIS</h3>
+<div class="space-y-sm">
+<div class="flex justify-between items-end gap-base h-24">
+<div class="w-full bg-green-500 rounded-t-sm transition-all duration-1000" style="height: 75%;"></div>
+<div class="w-full bg-red-400 rounded-t-sm transition-all duration-1000" style="height: 15%;"></div>
+<div class="w-full bg-surface-variant rounded-t-sm transition-all duration-1000" style="height: 10%;"></div>
+</div>
+<div class="flex justify-between text-label-sm font-bold pt-xs uppercase tracking-tighter">
+<span class="text-green-600">Positive</span>
+<span class="text-red-600">Negative</span>
+<span class="text-secondary">Neutral</span>
+</div>
+<p class="text-body-sm text-secondary mt-sm">Fan response is overwhelmingly positive after your last performance.</p>
+</div>
+</div>
+<!-- Premium CTA -->
+<button class="w-full bg-gold-accent text-black font-headline-sm font-bold py-md px-lg rounded-lg shadow-lg active:scale-95 transition-all uppercase tracking-widest italic">
+                    Upgrade to ELITE+
+                </button>
+</div>
+</aside>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface-container-lowest dark:bg-surface-dim border-t border-outline-variant shadow-lg flex justify-around items-center px-4 pb-4 pt-2">
+<button class="flex flex-col items-center justify-center bg-primary dark:bg-primary-fixed text-on-primary dark:text-on-primary-fixed rounded-xl px-6 py-2 active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">CREATE</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed px-6 py-2 hover:text-primary dark:hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">STATS</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed px-6 py-2 hover:text-primary dark:hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">LEAGUE</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed px-6 py-2 hover:text-primary dark:hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">GEAR</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for Engagement Counts
+        document.querySelectorAll('article button').forEach(button => {
+            button.addEventListener('click', function() {
+                const countSpan = this.querySelector('.text-label-sm');
+                if (countSpan) {
+                    let current = countSpan.innerText;
+                    let suffix = '';
+                    if (current.includes('K')) {
+                        suffix = 'K';
+                        current = parseFloat(current.replace('K', ''));
+                    } else {
+                        current = parseInt(current);
+                    }
+                    
+                    // Simple logic to increment or decrement for demo
+                    const isLiked = this.classList.contains('active-state');
+                    if (isLiked) {
+                        current -= 1;
+                        this.classList.remove('active-state');
+                        if (this.querySelector('.material-symbols-outlined').innerText === 'favorite') {
+                            this.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 0";
+                        }
+                    } else {
+                        current += 1;
+                        this.classList.add('active-state');
+                        if (this.querySelector('.material-symbols-outlined').innerText === 'favorite') {
+                            this.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 1";
+                        }
+                    }
+                    
+                    countSpan.innerText = (current % 1 !== 0 ? current.toFixed(1) : current) + suffix;
+                }
+            });
+        });
+
+        // Tab Switching Transition
+        document.querySelectorAll('nav button, div button').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.querySelectorAll('button').forEach(btn => {
+                    btn.classList.remove('border-b-2', 'border-primary', 'text-primary');
+                    btn.classList.add('text-secondary');
+                });
+                this.classList.add('border-b-2', 'border-primary', 'text-primary');
+                this.classList.remove('text-secondary');
+            });
+        });
+
+        // Initialize Fan Meter Animation on Load
+        window.addEventListener('load', () => {
+            const ring = document.querySelector('.fan-meter-ring');
+            if (ring) {
+                // Calculation: circumference = 2 * PI * r (2 * 3.14 * 58 = 364.4)
+                // 88% of 364.4 is ~320.67
+                // offset = circumference - (percent / 100 * circumference)
+                const percent = 88;
+                const circumference = 364.4;
+                const offset = circumference - (percent / 100 * circumference);
+                ring.style.strokeDashoffset = offset;
+            }
+        });
+    </script>
+</body></html>
