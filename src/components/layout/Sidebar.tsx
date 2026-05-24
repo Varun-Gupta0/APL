@@ -32,7 +32,7 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { name, teamName, level } = usePlayerStore();
+  const { name = "VIRAJ SHARMA", teamName = "Mumbai Titans", level = 1 } = usePlayerStore();
 
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-[#16233B] bg-[#0B1220]/95 backdrop-blur-md pt-20 flex flex-col transition-transform sm:translate-x-0">

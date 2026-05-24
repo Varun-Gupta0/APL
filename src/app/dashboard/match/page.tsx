@@ -12,7 +12,7 @@ import Link from "next/link";
 type MatchStep = "PRE_MATCH" | "SIMULATING" | "PLAYBACK" | "SUMMARY";
 
 export default function MatchSimulationPage() {
-  const { name, personality, teamName, loadPlayerFromBackend } = usePlayerStore();
+  const { name = "VIRAJ SHARMA", personality = "Aggressive", teamName = "Mumbai Titans", loadPlayerFromBackend } = usePlayerStore();
   const simulateMatchOnBackend = usePlayerStore((s) => s.simulateMatchOnBackend);
 
   // Match Config State

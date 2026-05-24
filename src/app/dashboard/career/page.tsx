@@ -13,7 +13,18 @@ const timeline = [
 ];
 
 export default function CareerPage() {
-  const { name, role, specialty, teamName, ovr, level, fans, totalMatches, totalRuns, totalWickets } = usePlayerStore();
+  const { 
+    name = "VIRAJ SHARMA", 
+    role = "Batsman", 
+    specialty = "Finisher", 
+    teamName = "Mumbai Titans", 
+    ovr = 68, 
+    level = 1, 
+    fans = 12500, 
+    totalMatches = 0, 
+    totalRuns = 0, 
+    totalWickets = 0 
+  } = usePlayerStore();
 
   return (
     <PageTransition>

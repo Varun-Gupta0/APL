@@ -15,7 +15,14 @@ const drills = [
 ];
 
 export default function TrainingPage() {
-  const { role, ovr, confidence, fitness, reputation, addXp } = usePlayerStore();
+  const { 
+    role = "Batsman", 
+    ovr = 68, 
+    confidence = 78, 
+    fitness = 80, 
+    reputation = 30, 
+    addXp 
+  } = usePlayerStore();
   const [trainingActive, setTrainingActive] = useState<string | null>(null);
   const [showDone, setShowDone] = useState(false);
   const [trainedDrill, setTrainedDrill] = useState<any>(null);

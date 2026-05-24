@@ -4,8 +4,15 @@ import { motion } from "framer-motion";
 import { usePlayerStore, formatFans } from "@/store/playerStore";
 
 export function TopHeader() {
-  const { name, ovr, level, fans, xp, xpToNext } = usePlayerStore();
-  const xpPct = xpToNext > 0 ? Math.min(100, Math.max(0, (xp / xpToNext) * 100)) : 0;
+  const { 
+    name = "VIRAJ SHARMA", 
+    ovr = 68, 
+    level = 1, 
+    fans = 12500, 
+    xp = 0, 
+    xpToNext = 100 
+  } = usePlayerStore();
+  const xpPct = (xpToNext || 100) > 0 ? Math.min(100, Math.max(0, ((xp || 0) / (xpToNext || 100)) * 100)) : 0;
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-[#16233B] bg-[#0B1220]/90 backdrop-blur-md">

@@ -18,7 +18,7 @@ function ToggleRow({ label, defaultOn = true }: { label: string; defaultOn?: boo
 }
 
 export default function SettingsPage() {
-  const { name, role, teamName } = usePlayerStore();
+  const { name = "VIRAJ SHARMA", role = "Batsman", teamName = "Mumbai Titans" } = usePlayerStore();
 
   return (
     <PageTransition>
