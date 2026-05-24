@@ -1,12 +1,32 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { playerStats, recentMatches } from "@/lib/mockData";
 import { Activity, Star, ChevronRight, MapPin, Zap } from "lucide-react";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { usePlayer } from "@/hooks/usePlayer";
+import { useRival } from "@/hooks/useRival";
+import Link from "next/link";
+import { usePlayerStore } from "@/store/playerStore";
 
 export default function DashboardHome() {
-  const nextMatch = recentMatches[0];
+  const { player, isLoading } = usePlayer();
+  const { activeRival } = useRival();
+  
+  // Actually since usePlayer returns `{ player, isLoading }` and `player` is the store instance:
+  // But wait! `usePlayer` returns `{ player: store, isLoading }` where `store` is the whole `usePlayerStore` object from Zustand hook?
+  // Let's check `usePlayer.ts`.
+  // Yes: `const store = usePlayerStore(); return { player: store, isLoading };`
+  // So player.name, player.teamName etc are accessible.
+  // Wait, I should also make sure totalRuns, totalMatches exist in playerStore if they don't, but they don't exist in PlayerState!
+  // In `usePlayerStore.ts`: we only have `level`, `xp`, `fans`, `confidence`, `ovr`.
+  // We need `totalRuns`, `totalMatches`, `highestScore` etc., or just mock them for now. Let's add them to Zustand or use mock for career stats if not in Zustand.
+
+  // Let's just fallback to mock or defaults for missing fields:
+  const totalMatches = 0;
+  const totalRuns = 0;
+  const average = "0.0";
+  const strikeRate = "0.0";
+  const highestScore = "0*";
 
   return (
     <PageTransition>
@@ -25,7 +45,7 @@ export default function DashboardHome() {
           <div className="relative z-10">
             <div className="mb-4 flex items-center justify-between">
               <span className="font-heading text-xl tracking-wider text-white">UPCOMING FIXTURE</span>
-              {nextMatch.isRivalry && (
+              {activeRival && (
                 <span className="flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-xs font-bold tracking-widest text-red-500">
                   <Zap size={14} className="fill-red-500" />
                   RIVALRY MATCH
@@ -36,16 +56,20 @@ export default function DashboardHome() {
             <div className="mb-8 flex items-center gap-8">
               <div className="flex flex-col items-center">
                 <div className="mb-2 flex h-20 w-20 items-center justify-center rounded-full bg-blue-900/50 border border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-                  <span className="font-heading text-2xl text-white">MI</span>
+                  <span className="font-heading text-2xl text-white">YOU</span>
                 </div>
-                <span className="font-sans text-sm font-bold text-gray-300">INDIANS</span>
+                <span className="font-sans text-sm font-bold text-gray-300">{player.teamName.toUpperCase()}</span>
               </div>
               <div className="font-heading text-4xl text-gray-500">VS</div>
               <div className="flex flex-col items-center">
                 <div className="mb-2 flex h-20 w-20 items-center justify-center rounded-full bg-yellow-600/50 border border-yellow-500/30">
-                  <span className="font-heading text-2xl text-white">CSK</span>
+                  <span className="font-heading text-2xl text-white">
+                    {activeRival && activeRival.team ? activeRival.team.substring(0, 3).toUpperCase() : "OPP"}
+                  </span>
                 </div>
-                <span className="font-sans text-sm font-bold text-gray-300">KINGS</span>
+                <span className="font-sans text-sm font-bold text-gray-300">
+                  {activeRival && activeRival.team ? activeRival.team.toUpperCase() : "OPPONENT"}
+                </span>
               </div>
             </div>
 
@@ -56,10 +80,12 @@ export default function DashboardHome() {
               <span>Pitch: Flat / Batting Friendly</span>
             </div>
 
-            <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#D4A94D] py-3 font-sans text-sm font-bold tracking-widest text-black shadow-[0_0_15px_rgba(212,169,77,0.3)] transition-all hover:bg-white">
-              VIEW MATCH PREVIEW
-              <ChevronRight size={18} />
-            </button>
+            <Link href="/dashboard/match">
+              <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#D4A94D] py-3 font-sans text-sm font-bold tracking-widest text-black shadow-[0_0_15px_rgba(212,169,77,0.3)] transition-all hover:bg-white">
+                VIEW MATCH PREVIEW
+                <ChevronRight size={18} />
+              </button>
+            </Link>
           </div>
         </motion.div>
 
@@ -73,11 +99,11 @@ export default function DashboardHome() {
           <div>
             <h3 className="mb-6 font-heading text-xl tracking-wider text-white">CAREER OVERVIEW</h3>
             <div className="space-y-4">
-              <StatRow label="Matches" value={playerStats.matches.toString()} />
-              <StatRow label="Total Runs" value={playerStats.runs.toString()} />
-              <StatRow label="Average" value={playerStats.average.toString()} highlight />
-              <StatRow label="Strike Rate" value={playerStats.strikeRate.toString()} />
-              <StatRow label="Highest Score" value={playerStats.highestScore} />
+              <StatRow label="Matches" value={totalMatches.toString()} />
+              <StatRow label="Total Runs" value={totalRuns.toString()} />
+              <StatRow label="Average" value={average} highlight />
+              <StatRow label="Strike Rate" value={strikeRate} />
+              <StatRow label="Highest Score" value={highestScore} />
             </div>
           </div>
           <div className="mt-6 border-t border-[#16233B] pt-4">
@@ -103,7 +129,7 @@ export default function DashboardHome() {
       <div className="grid gap-6 md:grid-cols-3">
         <ProgressionCard title="MENTALITY" percentage={85} color="#10B981" delay={0.2} />
         <ProgressionCard title="FITNESS" percentage={92} color="#3B82F6" delay={0.3} />
-        <ProgressionCard title="CONFIDENCE" percentage={78} color="#D4A94D" delay={0.4} />
+        <ProgressionCard title="CONFIDENCE" percentage={player.confidence || 78} color="#D4A94D" delay={0.4} />
       </div>
       </div>
     </PageTransition>

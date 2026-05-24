@@ -3,16 +3,38 @@
 import { motion } from "framer-motion";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { DollarSign, Star, Clock } from "lucide-react";
+import { DollarSign, Star, Clock, Inbox } from "lucide-react";
+import { usePlayerStore } from "@/store/playerStore";
 
-const sponsors = [
+const mockSponsors = [
   { name: "Z-FUEL Energy", logo: "⚡", value: "₹45L/yr", status: "ACTIVE", type: "Energy Drink", color: "from-yellow-500/20", since: "Season 1" },
   { name: "VIPER Sports Gear", logo: "🏏", value: "₹30L/yr", status: "ACTIVE", type: "Equipment", color: "from-blue-500/20", since: "Season 1" },
-  { name: "CricBuzz Media", logo: "📺", value: "₹20L/yr", status: "OFFER", type: "Media", color: "from-purple-500/20", since: "" },
-  { name: "SkyBet Gaming", logo: "🎮", value: "₹15L/yr", status: "OFFER", type: "Gaming", color: "from-green-500/20", since: "" },
 ];
 
 export default function SponsorsPage() {
+  const store = usePlayerStore();
+  const dynamicSponsors = store.sponsors || [];
+
+  const handleAccept = (sponsor: any) => {
+    // Basic logic to mock accepting a sponsor: remove it from offers, maybe grant some fans/rep
+    store.addFans(10000);
+    store.setSponsors(store.sponsors.filter(s => s.id !== sponsor.id));
+  };
+
+  const combinedSponsors = [
+    ...mockSponsors,
+    ...dynamicSponsors.map((s: any) => ({
+      id: s.id,
+      name: s.brand,
+      logo: s.logoEmoji,
+      value: s.offerValue,
+      status: "OFFER",
+      type: s.category.replace("_", " "),
+      color: "from-purple-500/20",
+      since: ""
+    }))
+  ];
+
   return (
     <PageTransition>
       <div className="mx-auto max-w-6xl space-y-8">
@@ -34,38 +56,45 @@ export default function SponsorsPage() {
         </motion.div>
 
         {/* Sponsor Cards */}
-        <div className="grid gap-4 md:grid-cols-2">
-          {sponsors.map((s, i) => (
-            <motion.div
-              key={s.name}
-              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
-              whileHover={{ y: -4 }}
-              className={`rounded-xl border bg-gradient-to-br ${s.color} to-transparent p-6 cursor-pointer transition-all ${s.status === "ACTIVE" ? "border-[#D4A94D]/20" : "border-[#16233B]"}`}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="text-4xl">{s.logo}</div>
-                  <div>
-                    <p className="font-heading text-xl text-white">{s.name}</p>
-                    <p className="text-sm text-gray-400">{s.type}</p>
+        {combinedSponsors.length === 0 ? (
+           <div className="flex flex-col items-center justify-center p-12 border border-white/10 rounded-xl bg-black/20">
+             <Inbox className="w-12 h-12 text-gray-500 mb-4" />
+             <p className="text-gray-400">No active offers. Play matches to earn sponsorships.</p>
+           </div>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2">
+            {combinedSponsors.map((s, i) => (
+              <motion.div
+                key={s.name + i}
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
+                whileHover={{ y: -4 }}
+                className={`rounded-xl border bg-gradient-to-br ${s.color} to-transparent p-6 transition-all ${s.status === "ACTIVE" ? "border-[#D4A94D]/20" : "border-[#16233B]"}`}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="text-4xl">{s.logo}</div>
+                    <div>
+                      <p className="font-heading text-xl text-white">{s.name}</p>
+                      <p className="text-sm text-gray-400">{s.type}</p>
+                    </div>
                   </div>
+                  <span className={`rounded-full px-3 py-1 text-xs font-bold ${s.status === "ACTIVE" ? "bg-green-500/20 text-green-400" : "bg-[#D4A94D]/20 text-[#D4A94D]"}`}>{s.status}</span>
                 </div>
-                <span className={`rounded-full px-3 py-1 text-xs font-bold ${s.status === "ACTIVE" ? "bg-green-500/20 text-green-400" : "bg-[#D4A94D]/20 text-[#D4A94D]"}`}>{s.status}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <DollarSign size={14} className="text-[#D4A94D]" />
-                  <span className="font-heading text-2xl text-[#D4A94D]">{s.value}</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <DollarSign size={14} className="text-[#D4A94D]" />
+                    <span className="font-heading text-2xl text-[#D4A94D]">{s.value}</span>
+                  </div>
+                  {s.status === "OFFER" ? (
+                    <button onClick={() => handleAccept(s)} className="rounded-lg bg-[#D4A94D] px-4 py-2 text-xs font-bold text-black uppercase tracking-wider hover:brightness-110 transition-all">Accept</button>
+                  ) : (
+                    <div className="flex items-center gap-1 text-xs text-gray-400"><Clock size={12} /> Since {s.since}</div>
+                  )}
                 </div>
-                {s.status === "OFFER" ? (
-                  <button className="rounded-lg bg-[#D4A94D] px-4 py-2 text-xs font-bold text-black uppercase tracking-wider hover:brightness-110 transition-all">Accept</button>
-                ) : (
-                  <div className="flex items-center gap-1 text-xs text-gray-400"><Clock size={12} /> Since {s.since}</div>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </PageTransition>
   );

@@ -58,26 +58,74 @@ const MOCK_POSTS: FeedPostProps[] = [
   }
 ];
 
+import { useSocial } from "@/hooks/useSocial";
+
 export default function SocialDashboardPage() {
+  const { feedData, isLoading, refreshFeed } = useSocial();
+
+  if (isLoading && !feedData) {
+    return (
+      <PageTransition>
+        <div className="mx-auto max-w-6xl">
+          <SectionHeader title="Social Feed" subtitle="The world is watching your rise" />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-pulse">
+            <section className="lg:col-span-8 space-y-4">
+               <div className="h-32 bg-[#16233B] w-full rounded-2xl mb-4" />
+               <div className="h-32 bg-[#16233B] w-full rounded-2xl mb-4" />
+               <div className="h-32 bg-[#16233B] w-full rounded-2xl mb-4" />
+            </section>
+            <aside className="lg:col-span-4 space-y-4">
+               <div className="h-48 bg-[#16233B] w-full rounded-2xl mb-4" />
+               <div className="h-64 bg-[#16233B] w-full rounded-2xl" />
+            </aside>
+          </div>
+        </div>
+      </PageTransition>
+    );
+  }
+
+  // Map backend posts to FeedPostProps format
+  const mappedPosts: FeedPostProps[] = (feedData?.feed.posts || MOCK_POSTS).map((post: any) => ({
+    id: post.id,
+    author: post.author,
+    handle: post.handle,
+    timeAgo: "Just now",
+    content: post.content,
+    avatar: post.avatar.startsWith("http") ? post.avatar : undefined, // the backend uses emojis
+    avatarEmoji: !post.avatar.startsWith("http") ? post.avatar : undefined,
+    isVerified: post.isVerified,
+    likes: post.likes,
+    comments: post.replies,
+    reposts: post.retweets,
+    category: post.postType + "S",
+  }));
+
   return (
     <PageTransition>
       <div className="mx-auto max-w-6xl">
-        <SectionHeader title="Social Feed" subtitle="The world is watching your rise" />
+        <div className="flex justify-between items-end mb-6">
+          <SectionHeader title="Social Feed" subtitle="The world is watching your rise" />
+          <button 
+            onClick={refreshFeed}
+            disabled={isLoading}
+            className="flex items-center gap-2 rounded-lg bg-[#16233B] px-4 py-2 text-xs font-bold text-gray-300 hover:bg-[#1f2f4e] transition-colors uppercase tracking-widest disabled:opacity-50"
+          >
+            {isLoading ? "Refreshing..." : "Refresh Feed"}
+          </button>
+        </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Main Feed */}
           <section className="lg:col-span-8 space-y-4">
-            <SocialFeed initialPosts={MOCK_POSTS} />
+            <SocialFeed initialPosts={mappedPosts} />
           </section>
 
           {/* Right Sidebar */}
           <aside className="lg:col-span-4 space-y-4">
-            <FanMeter approvalRating={88} />
+            <FanMeter approvalRating={feedData?.feed.sentimentScore || 88} />
+            {/* Can pass dynamic trending hashtags to TrendingPanel if it accepts props */}
             <TrendingPanel />
             <AnalystCard />
-            <button className="w-full bg-[#D4AF37] text-black font-bold py-3 rounded-lg shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:brightness-110 active:scale-95 transition-all uppercase tracking-widest italic">
-              Upgrade to ELITE+
-            </button>
           </aside>
         </div>
       </div>

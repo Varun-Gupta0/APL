@@ -122,7 +122,12 @@ export default function CreatePlayerPage() {
       : (stats.bat + stats.bowl) * 0.35 + stats.mental * 0.15 + stats.fitness * 0.1 + stats.field * 0.05
   );
 
-  const handleCreatePlayer = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleCreatePlayer = async () => {
+    setIsSubmitting(true);
+    
+    // Set Zustand store
     setPlayer({
       name: playerName.trim() || "VIRAJ SHARMA",
       role,
@@ -133,6 +138,34 @@ export default function CreatePlayerPage() {
       portraitIndex: currentSlide,
       ovr
     });
+
+    // We rely on usePlayer hook in dashboard to sync with backend 
+    // OR we could do it here:
+    try {
+      const { api } = await import("@/lib/api");
+      const backendPlayer = await api.createPlayer({
+        name: playerName.trim() || "VIRAJ SHARMA",
+        role: role.toUpperCase().replace("-", "_"),
+        battingStyle: battingStyle.toUpperCase().replace("-", "_"),
+        bowlingStyle: bowlingStyle.toUpperCase(),
+        personality: personality.toUpperCase(),
+        specialty: specialty.toUpperCase().replace(" ", "_") || "BIG_HITTER",
+      });
+      // Backend successful, update synced flag
+      usePlayerStore.getState().setBackendSynced(true);
+      if (backendPlayer) {
+         usePlayerStore.getState().setPlayer({
+            level: backendPlayer.level,
+            xp: backendPlayer.xp,
+            fans: backendPlayer.followers,
+            confidence: backendPlayer.confidence
+         });
+      }
+    } catch (e) {
+      console.error("Failed to sync player to backend", e);
+    }
+
+    setIsSubmitting(false);
     router.push("/team-select");
   };
 
@@ -351,9 +384,10 @@ export default function CreatePlayerPage() {
               <div className="pt-4">
                 <button
                   onClick={handleCreatePlayer}
-                  className="w-full bg-[#D4A94D] hover:bg-[#C59B3F] active:scale-[0.99] transition-all text-[#0B1220] font-heading text-lg py-3.5 px-6 rounded-lg uppercase tracking-widest font-extrabold flex justify-center items-center gap-2 shadow-md hover:shadow-lg"
+                  disabled={isSubmitting}
+                  className={`w-full bg-[#D4A94D] hover:bg-[#C59B3F] active:scale-[0.99] transition-all text-[#0B1220] font-heading text-lg py-3.5 px-6 rounded-lg uppercase tracking-widest font-extrabold flex justify-center items-center gap-2 shadow-md hover:shadow-lg ${isSubmitting ? "opacity-75 cursor-wait" : ""}`}
                 >
-                  CREATE PLAYER
+                  {isSubmitting ? "CREATING..." : "CREATE PLAYER"}
                 </button>
               </div>
             </div>

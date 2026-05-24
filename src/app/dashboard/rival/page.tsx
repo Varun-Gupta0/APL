@@ -5,10 +5,22 @@ import { PageTransition } from "@/components/shared/PageTransition";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import Link from "next/link";
 import { Zap, Shield, TrendingUp } from "lucide-react";
-import { usePlayerStore } from "@/store/playerStore";
+import { useRival } from "@/hooks/useRival";
 
 export default function RivalPage() {
-  const { currentRival } = usePlayerStore();
+  const { activeRival, isLoading } = useRival();
+
+  if (isLoading || !activeRival) {
+    // Basic loading state
+    return (
+      <PageTransition>
+        <div className="mx-auto max-w-6xl space-y-8 animate-pulse">
+           <div className="h-10 bg-[#16233B] w-1/3 rounded-lg mb-4" />
+           <div className="h-64 bg-[#16233B] w-full rounded-2xl" />
+        </div>
+      </PageTransition>
+    );
+  }
 
   return (
     <PageTransition>
@@ -24,21 +36,21 @@ export default function RivalPage() {
           <div className="absolute -right-20 -bottom-20 h-48 w-48 rounded-full bg-red-500/5 blur-3xl" />
           <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-center">
             <div className="flex items-center gap-6">
-              <div className="h-24 w-24 overflow-hidden rounded-full border-2 border-red-500/50 shadow-[0_0_20px_rgba(239,68,68,0.3)]">
-                <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=200" className="h-full w-full object-cover" alt={currentRival || "Rival"} />
+              <div className="h-24 w-24 overflow-hidden rounded-full border-2 border-red-500/50 flex items-center justify-center bg-gray-900 shadow-[0_0_20px_rgba(239,68,68,0.3)]">
+                <span className="text-4xl">{activeRival.avatar || "🔥"}</span>
               </div>
               <div>
-                <div className="mb-1 text-xs font-bold tracking-widest text-red-400 uppercase">Primary Rival</div>
-                <h2 className="font-heading text-3xl text-white uppercase">{currentRival || "Arjun Patel"}</h2>
-                <p className="text-gray-400">All-Rounder · Delhi Dynamos · OVR 74</p>
+                <div className="mb-1 text-xs font-bold tracking-widest text-red-400 uppercase">Primary Rival · {activeRival.status || "ACTIVE"}</div>
+                <h2 className="font-heading text-3xl text-white uppercase">{activeRival.name || "Rival"}</h2>
+                <p className="text-gray-400">{activeRival.role || "Batsman"} · {activeRival.team || "Opposition"} · OVR {activeRival.ovr || 85}</p>
               </div>
             </div>
             <div className="flex flex-1 justify-around text-center">
-              <div><p className="font-heading text-3xl text-white">4</p><p className="text-xs text-gray-400">Head-to-Head</p></div>
-              <div><p className="font-heading text-3xl text-[#D4A94D]">2</p><p className="text-xs text-gray-400">Your Wins</p></div>
-              <div><p className="font-heading text-3xl text-red-400">2</p><p className="text-xs text-gray-400">Their Wins</p></div>
+              <div><p className="font-heading text-3xl text-white">{(activeRival.history && activeRival.history.matchesPlayed) || 0}</p><p className="text-xs text-gray-400">Head-to-Head</p></div>
+              <div><p className="font-heading text-3xl text-[#D4A94D]">{(activeRival.history && activeRival.history.playerWins) || 0}</p><p className="text-xs text-gray-400">Your Wins</p></div>
+              <div><p className="font-heading text-3xl text-red-400">{(activeRival.history && activeRival.history.rivalWins) || 0}</p><p className="text-xs text-gray-400">Their Wins</p></div>
             </div>
-            <Link href="/dashboard/schedule">
+            <Link href="/dashboard/match">
               <button className="flex items-center gap-2 rounded-lg bg-red-600 px-6 py-3 font-bold tracking-widest text-white hover:bg-red-500 transition-colors uppercase">
                 <Zap size={16} className="fill-white" /> Challenge
               </button>

@@ -28,12 +28,20 @@ export interface PlayerState {
   // Career Status
   isCreated: boolean;
   teamSelected: boolean;
+  backendSynced: boolean;
+
+  // Backend Data
+  sponsors: any[];
+  rivals: any[];
 
   // Actions
   setPlayer: (data: Partial<Omit<PlayerState, "setPlayer" | "addXp" | "addFans" | "setTeam" | "reset">>) => void;
   setTeam: (teamName: string) => void;
   addXp: (amount: number) => void;
   addFans: (amount: number) => void;
+  setSponsors: (sponsors: any[]) => void;
+  setRivals: (rivals: any[]) => void;
+  setBackendSynced: (synced: boolean) => void;
   reset: () => void;
 }
 
@@ -61,6 +69,9 @@ export const usePlayerStore = create<PlayerState>()(
 
       isCreated: false,
       teamSelected: false,
+      backendSynced: false,
+      sponsors: [],
+      rivals: [],
 
       setPlayer: (data) => set((state) => ({ ...state, ...data, isCreated: true })),
       setTeam: (teamName) => set({ teamName, teamSelected: true }),
@@ -73,7 +84,10 @@ export const usePlayerStore = create<PlayerState>()(
           return { xp: newXp };
         }),
       addFans: (amount) => set((state) => ({ fans: state.fans + amount })),
-      reset: () => set({ isCreated: false, teamSelected: false, ovr: 68, level: 4, fans: 125000, xp: 3400 }),
+      setSponsors: (sponsors) => set({ sponsors }),
+      setRivals: (rivals) => set({ rivals }),
+      setBackendSynced: (synced) => set({ backendSynced: synced }),
+      reset: () => set({ isCreated: false, teamSelected: false, backendSynced: false, ovr: 68, level: 4, fans: 125000, xp: 3400, sponsors: [], rivals: [] }),
     }),
     { name: "athlete-zero-player" }
   )

@@ -9,13 +9,14 @@ export interface FeedPostProps {
   handle: string;
   timeAgo: string;
   content: React.ReactNode;
-  avatar: string;
+  avatar?: string;
+  avatarEmoji?: string;
   isVerified?: boolean;
   image?: string;
   likes: number;
   comments: number;
   reposts: number;
-  category: "FANS" | "MEDIA" | "ANALYSTS" | "RIVALS";
+  category: "FANS" | "MEDIA" | "ANALYSTS" | "RIVALS" | string;
 }
 
 export function FeedPost({
@@ -24,6 +25,7 @@ export function FeedPost({
   timeAgo,
   content,
   avatar,
+  avatarEmoji,
   isVerified,
   image,
   likes,
@@ -33,8 +35,12 @@ export function FeedPost({
   return (
     <article className="bg-[#111E32] p-md rounded-xl shadow-sm border border-[#16233B] transition-all hover:-translate-y-1 hover:shadow-lg">
       <div className="flex gap-sm">
-        <div className="shrink-0 w-12 h-12 rounded-full overflow-hidden bg-[#16233B] ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-[#111E32]">
-          <Image src={avatar} alt={author} width={48} height={48} className="w-full h-full object-cover" unoptimized />
+        <div className="shrink-0 w-12 h-12 rounded-full overflow-hidden bg-[#16233B] ring-2 ring-[#D4AF37] ring-offset-2 ring-offset-[#111E32] flex items-center justify-center">
+          {avatar ? (
+            <Image src={avatar} alt={author} width={48} height={48} className="w-full h-full object-cover" unoptimized />
+          ) : (
+            <span className="text-2xl">{avatarEmoji || "🗣️"}</span>
+          )}
         </div>
         
         <div className="flex-1">
