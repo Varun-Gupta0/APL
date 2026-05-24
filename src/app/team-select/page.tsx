@@ -119,7 +119,7 @@ export default function TeamSelectPage() {
 
   const handleConfirm = () => {
     setTeam(selectedTeam.fullName);
-    router.push("/dashboard");
+    router.push("/dashboard/home");
   };
 
   if (!hydrated || !isCreated) {

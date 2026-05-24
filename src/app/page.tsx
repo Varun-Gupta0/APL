@@ -21,22 +21,16 @@ export default function LandingPage() {
     }
   }, []);
 
-  const startPath = hydrated
-    ? !isCreated
-      ? "/create-player"
-      : !teamSelected
-      ? "/team-select"
-      : "/dashboard"
-    : "/create-player";
+  const startPath = "/create-player";
 
   // Login goes to dashboard if created, otherwise onboarding
   const loginPath = hydrated
     ? isCreated && teamSelected
-      ? "/dashboard"
+      ? "/dashboard/home"
       : !isCreated
       ? "/create-player"
       : "/team-select"
-    : "/dashboard";
+    : "/dashboard/home";
 
   return (
     <div className="relative min-h-screen bg-[#0B1220] overflow-hidden">
