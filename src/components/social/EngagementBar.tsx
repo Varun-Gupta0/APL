@@ -26,11 +26,21 @@ export function EngagementBar({ initialLikes, initialComments, initialReposts }:
     setReposts((prev) => (isReposted ? prev - 1 : prev + 1));
   };
 
-  const formatCount = (count: number) => {
-    if (count >= 1000) {
-      return (count / 1000).toFixed(1) + "K";
+  const formatCount = (count: any) => {
+    if (count === undefined || count === null) {
+      return "0";
     }
-    return count.toString();
+    if (typeof count === "string") {
+      return count;
+    }
+    const num = Number(count);
+    if (isNaN(num)) {
+      return "0";
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + "K";
+    }
+    return num.toString();
   };
 
   return (
