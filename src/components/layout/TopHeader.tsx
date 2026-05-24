@@ -32,9 +32,9 @@ export function TopHeader() {
           </div>
 
           <div className="flex gap-4 border-l border-[#16233B] pl-6">
-            <StatBlock label="OVR" value={ovr.toString()} />
-            <StatBlock label="LVL" value={level.toString()} />
-            <StatBlock label="FANS" value={formatFans(fans)} />
+            <StatBlock label="OVR" value={(ovr ?? 68).toString()} />
+            <StatBlock label="LVL" value={(level ?? 1).toString()} />
+            <StatBlock label="FANS" value={formatFans(fans ?? 12500)} />
           </div>
 
           {/* XP Progress bar */}

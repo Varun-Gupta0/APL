@@ -60,10 +60,10 @@ export default function CareerPage() {
 
         {/* Career Stats */}
         <div className="grid gap-4 md:grid-cols-4">
-          <StatCard label="Career Matches" value={totalMatches.toString()} delay={0.1} icon={<Calendar size={20} />} />
-          <StatCard label="Total Runs" value={totalRuns.toString()} delay={0.2} icon={<TrendingUp size={20} />} />
-          <StatCard label="Total Wickets" value={totalWickets.toString()} accent delay={0.3} icon={<Award size={20} />} />
-          <StatCard label="Followers" value={fans >= 1000 ? (fans/1000).toFixed(0)+"K" : fans.toString()} delay={0.4} />
+          <StatCard label="Career Matches" value={(totalMatches ?? 0).toString()} delay={0.1} icon={<Calendar size={20} />} />
+          <StatCard label="Total Runs" value={(totalRuns ?? 0).toString()} delay={0.2} icon={<TrendingUp size={20} />} />
+          <StatCard label="Total Wickets" value={(totalWickets ?? 0).toString()} accent delay={0.3} icon={<Award size={20} />} />
+          <StatCard label="Followers" value={(fans ?? 0) >= 1000 ? ((fans ?? 0)/1000).toFixed(0)+"K" : (fans ?? 0).toString()} delay={0.4} />
         </div>
 
         {/* Career Timeline */}

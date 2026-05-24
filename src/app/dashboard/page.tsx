@@ -4,9 +4,17 @@ import { motion } from "framer-motion";
 import { playerStats, recentMatches } from "@/lib/mockData";
 import { Activity, Star, ChevronRight, MapPin, Zap } from "lucide-react";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { usePlayerStore } from "@/store/playerStore";
 
 export default function DashboardHome() {
   const nextMatch = recentMatches[0];
+  const { 
+    totalMatches = 0, 
+    totalRuns = 0, 
+    confidence = 78, 
+    fitness = 92, 
+    reputation = 85 
+  } = usePlayerStore();
 
   return (
     <PageTransition>
@@ -73,11 +81,11 @@ export default function DashboardHome() {
           <div>
             <h3 className="mb-6 font-heading text-xl tracking-wider text-white">CAREER OVERVIEW</h3>
             <div className="space-y-4">
-              <StatRow label="Matches" value={playerStats.matches.toString()} />
-              <StatRow label="Total Runs" value={playerStats.runs.toString()} />
-              <StatRow label="Average" value={playerStats.average.toString()} highlight />
-              <StatRow label="Strike Rate" value={playerStats.strikeRate.toString()} />
-              <StatRow label="Highest Score" value={playerStats.highestScore} />
+              <StatRow label="Matches" value={(totalMatches ?? 0).toString()} />
+              <StatRow label="Total Runs" value={(totalRuns ?? 0).toString()} />
+              <StatRow label="Average" value={totalMatches > 0 ? ((totalRuns ?? 0) / totalMatches).toFixed(1) : "0.0"} highlight />
+              <StatRow label="Strike Rate" value="142.5" />
+              <StatRow label="Highest Score" value="76" />
             </div>
           </div>
           <div className="mt-6 border-t border-[#16233B] pt-4">
@@ -101,9 +109,9 @@ export default function DashboardHome() {
 
       {/* Bottom Grid - Progression */}
       <div className="grid gap-6 md:grid-cols-3">
-        <ProgressionCard title="MENTALITY" percentage={85} color="#10B981" delay={0.2} />
-        <ProgressionCard title="FITNESS" percentage={92} color="#3B82F6" delay={0.3} />
-        <ProgressionCard title="CONFIDENCE" percentage={78} color="#D4A94D" delay={0.4} />
+        <ProgressionCard title="MENTALITY" percentage={reputation ?? 85} color="#10B981" delay={0.2} />
+        <ProgressionCard title="FITNESS" percentage={fitness ?? 92} color="#3B82F6" delay={0.3} />
+        <ProgressionCard title="CONFIDENCE" percentage={confidence ?? 78} color="#D4A94D" delay={0.4} />
       </div>
       </div>
     </PageTransition>
